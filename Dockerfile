@@ -10,14 +10,13 @@ RUN npm ci
 # Copy all source files
 COPY . .
 
-# Accept the Gemini API keys as build arguments
-# Pass these via Cloud Build substitutions or docker build --build-arg
+# Accept optional build-time API keys
 ARG VITE_GEMINI_API_KEY_PRIMARY
 ARG VITE_GEMINI_API_KEY_FALLBACK
 ENV VITE_GEMINI_API_KEY_PRIMARY=$VITE_GEMINI_API_KEY_PRIMARY
 ENV VITE_GEMINI_API_KEY_FALLBACK=$VITE_GEMINI_API_KEY_FALLBACK
 
-# Build the production bundle (API keys get baked in here by Vite)
+# Build the production bundle
 RUN npm run build
 
 # ---- Stage 2: Serve with Nginx ----
@@ -32,7 +31,12 @@ COPY --from=builder /app/dist /usr/share/nginx/html
 # Copy custom nginx config so React Router works correctly
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
+# Copy the entrypoint script that injects runtime env vars
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
 # Expose port 8080 (required by Google Cloud Run)
 EXPOSE 8080
 
-CMD ["nginx", "-g", "daemon off;"]
+# Use entrypoint to inject runtime config before starting nginx
+ENTRYPOINT ["/entrypoint.sh"]

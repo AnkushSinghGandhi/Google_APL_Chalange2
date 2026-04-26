@@ -11,8 +11,10 @@ export const initializeGemini = (apiKey) => {
     model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 };
 
-const primaryKey = import.meta.env.VITE_GEMINI_API_KEY_PRIMARY;
-const fallbackKey = import.meta.env.VITE_GEMINI_API_KEY_FALLBACK;
+// Check build-time env vars (Vite) and runtime config (Cloud Run)
+const runtimeConfig = typeof window !== 'undefined' ? window.__RUNTIME_CONFIG__ : {};
+const primaryKey = import.meta.env.VITE_GEMINI_API_KEY_PRIMARY || runtimeConfig?.VITE_GEMINI_API_KEY_PRIMARY;
+const fallbackKey = import.meta.env.VITE_GEMINI_API_KEY_FALLBACK || runtimeConfig?.VITE_GEMINI_API_KEY_FALLBACK;
 const envKey = primaryKey || fallbackKey;
 
 if (envKey) {
