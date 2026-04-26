@@ -74,6 +74,7 @@ const getUserContext = (profile) => {
     if (profile.goal) parts.push(`Goal: ${profile.goal}`);
     if (profile.skills) parts.push(`Skills: ${profile.skills}`);
     if (profile.selfAssessment) parts.push(`Honest Self-Assessment:\n${profile.selfAssessment}`);
+    if (profile.learningMotivation) parts.push(`Why They Are Learning This (Key Motivation):\n${profile.learningMotivation}`);
     if (profile.resumeText) parts.push(`User Resume/Experience Background:\n${profile.resumeText.substring(0, 1500)}`);
 
     if (parts.length === 0) return "";

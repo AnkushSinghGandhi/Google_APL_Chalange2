@@ -5,7 +5,7 @@ const LearningContext = createContext(null);
 
 const DEFAULT_STATE = {
   apiKey: "",
-  userProfile: { occupation: "", goal: "", skills: "", name: "", resumeText: "", selfAssessment: "" },
+  userProfile: { occupation: "", goal: "", skills: "", name: "", resumeText: "", selfAssessment: "", learningMotivation: "" },
   currentTopic: "",
   topicsExplored: [],
   quizHistory: [],

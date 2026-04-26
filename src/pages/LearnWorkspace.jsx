@@ -379,6 +379,11 @@ export default function LearnWorkspace() {
                                 <label className="block text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-2">Paste Resume / Experience</label>
                                 <textarea value={localProfile.resumeText || ""} onChange={(e) => setLocalProfile({ ...localProfile, resumeText: e.target.value })} placeholder="Paste your resume or list your professional experience here so the AI can tailor analogies to your background..." className="w-full px-4 py-3 bg-black/50 border border-white/10 rounded-lg text-white placeholder:text-zinc-600 focus:outline-none focus:border-violet-500/50 font-mono text-sm min-h-[100px]" />
                             </div>
+
+                            <div>
+                                <label className="block text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-2">Why Are You Learning This?</label>
+                                <textarea value={localProfile.learningMotivation || ""} onChange={(e) => setLocalProfile({ ...localProfile, learningMotivation: e.target.value })} placeholder={"e.g.,\n• Targeting FAANG interviews (specifically Google)\n• Want a job with 10-15 LPA salary\n• Preparing for campus placements"} className="w-full px-4 py-3 bg-black/50 border border-white/10 rounded-lg text-white placeholder:text-zinc-600 focus:outline-none focus:border-violet-500/50 font-mono text-sm min-h-[80px]" />
+                            </div>
                         </div>
                         <div className="flex gap-3 mt-6">
                             <button onClick={() => setShowSettings(false)} className="px-5 py-2.5 text-zinc-400 hover:text-white border border-white/10 rounded-lg transition-all">Cancel</button>

@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import {
     Brain, Sparkles, Key, ArrowRight, Code, FlaskConical,
     Languages, Calculator, Palette, Music, BookOpen, Globe,
-    Cpu, Database, Shield, Cloud, Atom, TrendingUp
+    Cpu, Database, Shield, Cloud, Atom, TrendingUp, Target
 } from "lucide-react";
 import { useLearning } from "../context/LearningContext";
 import { initializeGemini } from "../lib/gemini";
@@ -40,6 +40,7 @@ export default function Landing() {
     const [localKey, setLocalKey] = useState(apiKey || "");
     const [selectedTopic, setSelectedTopic] = useState("");
     const [customTopic, setCustomTopic] = useState("");
+    const [motivationText, setMotivationText] = useState(userProfile.learningMotivation || "");
     const [step, setStep] = useState(1); // 1: hero, 2: setup, 3: topic select
     const [localProfile, setLocalProfile] = useState(userProfile);
 
@@ -64,6 +65,10 @@ export default function Landing() {
         const topic = customTopic.trim() || selectedTopic;
         if (topic) {
             setCurrentTopic(topic);
+        }
+        // Save the motivation into the user profile
+        if (motivationText.trim()) {
+            setUserProfile({ ...userProfile, learningMotivation: motivationText.trim() });
         }
         navigate("/learn");
     };
@@ -303,6 +308,31 @@ export default function Landing() {
                             </motion.button>
                         ))}
                     </motion.div>
+
+                    {/* Motivation — WHY are you learning this? */}
+                    {(selectedTopic || customTopic.trim()) && (
+                        <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            className="mb-8"
+                        >
+                            <div className="glass rounded-xl p-5">
+                                <div className="flex items-center gap-2 mb-3">
+                                    <Target className="w-4 h-4 text-violet-400" />
+                                    <label className="text-xs font-bold text-zinc-400 uppercase tracking-wider">
+                                        Why are you learning {customTopic.trim() || selectedTopic}?
+                                    </label>
+                                </div>
+                                <textarea
+                                    value={motivationText}
+                                    onChange={(e) => setMotivationText(e.target.value)}
+                                    placeholder={`e.g.,\n• Targeting FAANG interviews (specifically Google)\n• Want a job with 10-15 LPA salary\n• Preparing for upcoming campus placements\n• Building a side project that needs this skill`}
+                                    className="w-full px-4 py-3 bg-black/50 border border-white/10 rounded-lg text-white placeholder:text-zinc-600 focus:outline-none focus:border-violet-500/50 focus:ring-1 focus:ring-violet-500/20 text-sm min-h-[100px]"
+                                />
+                                <p className="text-[11px] text-zinc-600 mt-2 italic">The more specific you are, the better the AI tailors your roadmap, quizzes, and explanations.</p>
+                            </div>
+                        </motion.div>
+                    )}
 
                     <div className="flex gap-3 justify-center">
                         <button

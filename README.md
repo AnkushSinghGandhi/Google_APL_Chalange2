@@ -22,8 +22,12 @@ I wanted to transform a standard web template into a **centralized, interactive 
 The UI was intentionally designed with a dark-themed, glassmorphism aesthetic to reduce eye strain and provide a focused, distraction-free environment.
 
 ### ✨ Hyper-Personalization
-To make this the *best* possible solution to the APL challenge, the system goes beyond generic LLM answers. Users can now **upload their Resume/Experience** and provide an **Honest Self-Assessment** during the Quick Setup. 
-This data is dynamically injected into the core AI engine, allowing the Tutor to tailor its analogies strictly to the user's professional background (e.g., explaining Machine Learning using financial modeling analogies if the user's resume indicates they are a Finance major).
+To make this the *best* possible solution to the APL challenge, the system goes beyond generic LLM answers. Users can:
+- **Upload their Resume/Experience** — The AI reads your professional background and uses domain-specific analogies (e.g., explaining algorithms using financial modeling if your resume says "Finance").
+- **Provide an Honest Self-Assessment** — Tell the AI exactly where you stand (e.g., "I know React hooks but struggle with Redux") so it can fill your gaps, not repeat what you already know.
+- **State Why They're Learning** — Users can specify their exact motivation (e.g., "Targeting Google interviews", "Want a 10-15 LPA job", "Preparing for campus placements"). The AI then tailors its roadmaps, quizzes, and explanations to match that goal — interview prep looks very different from hobby learning.
+
+All of this context is dynamically injected into every Gemini prompt, making every interaction deeply personalized.
 
 ---
 
