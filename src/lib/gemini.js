@@ -151,6 +151,55 @@ Include 6-8 progressive steps.`;
     }
 };
 
+export const generateModuleDeepDive = async (moduleName, moduleDetails, parentContext, userProfile) => {
+    if (!model) throw new Error("Gemini API Key not set. Go to Settings to add your key.");
+    const cacheKey = `ai_cache_deepdive_${getContextHash(moduleName + parentContext)}_${getContextHash(JSON.stringify(userProfile))}`;
+    const cached = sessionStorage.getItem(cacheKey);
+    if (cached) return JSON.parse(cached);
+
+    const prompt = `You are an expert learning path designer. The user is studying a specific module within a larger roadmap. Break this module down into a detailed, actionable sub-roadmap.
+
+${getUserContext(userProfile)}
+
+Parent Topic Context:
+${parentContext.substring(0, 5000)}
+
+Module to break down:
+Title: "${moduleName}"
+Summary: "${moduleDetails || 'No details provided'}"
+
+Create a detailed breakdown of this specific module. Return ONLY valid JSON:
+{
+  "title": "${moduleName}",
+  "estimatedTime": "e.g., 2-3 hours",
+  "prerequisites": ["prerequisite 1", "prerequisite 2"],
+  "subSteps": [
+    {
+      "id": 1,
+      "title": "Sub-step title",
+      "description": "Detailed explanation of what to learn",
+      "keyConcepts": ["concept1", "concept2"],
+      "practiceTask": "A hands-on exercise to solidify this sub-step",
+      "timeEstimate": "30 mins"
+    }
+  ],
+  "resources": [
+    { "type": "article|video|docs", "title": "Resource name", "description": "Why this resource helps" }
+  ]
+}
+
+Include 4-6 sub-steps and 2-3 resources.`;
+
+    try {
+        const result = await model.generateContent(prompt);
+        const data = cleanAndParseJSON(result.response.text());
+        sessionStorage.setItem(cacheKey, JSON.stringify(data));
+        return data;
+    } catch (error) {
+        throw new Error(classifyError(error));
+    }
+};
+
 export const generatePathfinder = async (context, userProfile) => {
     if (!model) throw new Error("Gemini API Key not set. Go to Settings to add your key.");
     const cacheKey = `ai_cache_pathfinder_${getContextHash(context)}_${getContextHash(JSON.stringify(userProfile))}`;
