@@ -1,0 +1,11 @@
+runtime: nodejs20
+
+handlers:
+  # Serve all static files (CSS, JS, Images) from the dist folder
+  - url: /(.*\..+)$
+    static_files: dist/\1
+    upload: dist/(.*\..+)$
+  # Route all other requests to index.html so React Router works
+  - url: /.*
+    static_files: dist/index.html
+    upload: dist/index.html
