@@ -347,9 +347,13 @@ export default function LearnWorkspace() {
     };
 
     const handleSaveSettings = () => {
+        const keyChanged = localKey.trim() && localKey.trim() !== apiKey;
         if (localKey.trim()) setApiKey(localKey.trim());
         setUserProfile(localProfile);
         setShowSettings(false);
+        if (keyChanged) {
+            window.location.reload();
+        }
     };
 
     const activeConfig = MODES.find((m) => m.id === activeMode);
