@@ -3,6 +3,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 // Initialize Gemini
 let genAI = null;
 let model = null;
+let usingEnvKey = false;
 
 export const initializeGemini = (apiKey) => {
     if (!apiKey) return;
@@ -16,7 +17,10 @@ const envKey = primaryKey || fallbackKey;
 
 if (envKey) {
     initializeGemini(envKey);
+    usingEnvKey = true;
 }
+
+export const isUsingDefaultKey = () => usingEnvKey && !localStorage.getItem("gemini_key");
 
 const cleanAndParseJSON = (text) => {
     try {
@@ -49,9 +53,9 @@ const cleanAndParseJSON = (text) => {
 
 const classifyError = (error) => {
     const msg = error.message || error.toString();
-    if (msg.includes('429')) return `⏳ RATE LIMIT: Free tier quota exceeded.`;
+    if (msg.includes('429')) return `⏳ RATE LIMIT: The shared API key has hit its quota. Please add your own free Gemini key in ⚙️ Settings to continue.`;
     if (msg.includes('403')) return '🔒 ACCESS DENIED: Check API permissions.';
-    if (msg.includes('401')) return '🔑 INVALID KEY: Check your API key.';
+    if (msg.includes('401')) return '🔑 INVALID KEY: This API key is invalid. Go to ⚙️ Settings to update it.';
     if (msg.includes('CORS') || msg.includes('network')) return '🌐 NETWORK ERROR: Check connection.';
     return `❌ ERROR: ${msg.substring(0, 100)}`;
 };

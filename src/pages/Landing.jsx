@@ -7,7 +7,7 @@ import {
     Cpu, Database, Shield, Cloud, Atom, TrendingUp, Target
 } from "lucide-react";
 import { useLearning } from "../context/LearningContext";
-import { initializeGemini } from "../lib/gemini";
+import { initializeGemini, isUsingDefaultKey } from "../lib/gemini";
 
 const TOPIC_CATEGORIES = [
     { id: "programming", label: "Programming", icon: Code, color: "from-violet-500 to-purple-600" },
@@ -165,15 +165,30 @@ export default function Landing() {
                     </div>
 
                     <div className="space-y-5">
+                        {/* API Key Section */}
                         <div>
                             <label className="block text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-2">
                                 Gemini API Key
+                                {isUsingDefaultKey() && (
+                                    <span className="ml-2 text-[10px] text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full normal-case font-normal">✓ Shared key active</span>
+                                )}
                             </label>
+
+                            {isUsingDefaultKey() && (
+                                <div className="mb-3 flex items-start gap-2 p-3 rounded-lg bg-emerald-500/5 border border-emerald-500/15">
+                                    <span className="text-lg">🎉</span>
+                                    <p className="text-xs text-emerald-400 leading-relaxed">
+                                        A shared API key is already active — you can start learning immediately!<br />
+                                        <span className="text-zinc-500">Add your own free key below if the shared key hits its rate limit.</span>
+                                    </p>
+                                </div>
+                            )}
+
                             <input
                                 type="password"
                                 value={localKey}
                                 onChange={(e) => setLocalKey(e.target.value)}
-                                placeholder="Paste your Gemini AI Studio key..."
+                                placeholder={isUsingDefaultKey() ? "(Optional) Paste your own Gemini key to override..." : "Paste your Gemini AI Studio key..."}
                                 className="w-full px-4 py-3 bg-black/50 border border-white/10 rounded-lg text-white placeholder:text-zinc-600 focus:outline-none focus:border-violet-500/50 focus:ring-1 focus:ring-violet-500/20 font-mono text-sm"
                             />
                             <a

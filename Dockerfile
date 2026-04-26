@@ -10,7 +10,14 @@ RUN npm ci
 # Copy all source files
 COPY . .
 
-# Build the production bundle
+# Accept the Gemini API keys as build arguments
+# Pass these via Cloud Build substitutions or docker build --build-arg
+ARG VITE_GEMINI_API_KEY_PRIMARY
+ARG VITE_GEMINI_API_KEY_FALLBACK
+ENV VITE_GEMINI_API_KEY_PRIMARY=$VITE_GEMINI_API_KEY_PRIMARY
+ENV VITE_GEMINI_API_KEY_FALLBACK=$VITE_GEMINI_API_KEY_FALLBACK
+
+# Build the production bundle (API keys get baked in here by Vite)
 RUN npm run build
 
 # ---- Stage 2: Serve with Nginx ----
