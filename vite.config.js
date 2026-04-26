@@ -15,7 +15,7 @@ export default defineConfig({
         // Better code splitting for caching
         manualChunks: {
           vendor: ['react', 'react-dom', 'react-router-dom'],
-          icons: ['lucide-react', 'react-icons'],
+          icons: ['lucide-react'],
           animations: ['framer-motion'],
         },
       },
