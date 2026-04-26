@@ -36,9 +36,7 @@ While the current MVP is highly functional, there are several exciting features 
 ## 🤖 Prompts Used to Build This (via AntiGravity)
 To rapidly prototype and build this application, I utilized an agentic workflow with AntiGravity. Here are some of the key prompts I used to guide the AI in building my vision:
 
-> *"I want to completely repurpose this portfolio codebase into an adaptive AI learning assistant. Delete all portfolio-specific pages, data files, and components. Let's keep the core React/Vite/Tailwind setup and the Gemini AI integration."*
-
-> *"Create a LearnWorkspace component that serves as the main dashboard. It should integrate the Tutor, Quiz, Roadmap, and Pathfinder components into a single window rather than a floating widget. Ensure it uses a dark-themed glassmorphism design with a sidebar for switching tools."*
+> *"Create a LearnWorkspace component that serves as the main dashboard. It should integrate the Tutor, Quiz, Roadmap, and Pathfinder components into a single window. Ensure it uses a dark-themed glassmorphism design with a sidebar for switching tools."*
 
 > *"Implement an adaptive difficulty system using a React Context (`LearningContext`). When a user takes a quiz, track their score and use it to adjust the complexity of the prompts sent to Gemini (e.g., beginner vs advanced explanations)."*
 
