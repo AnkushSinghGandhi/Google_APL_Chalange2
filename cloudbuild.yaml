@@ -1,0 +1,54 @@
+steps:
+  # Step 1: Build the Docker image with the Gemini API key as a build argument
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '--build-arg'
+      - 'VITE_GEMINI_API_KEY_PRIMARY=${_VITE_GEMINI_API_KEY_PRIMARY}'
+      - '--build-arg'
+      - 'VITE_GEMINI_API_KEY_FALLBACK=${_VITE_GEMINI_API_KEY_FALLBACK}'
+      - '-t'
+      - 'gcr.io/$PROJECT_ID/learnwise-ai:$COMMIT_SHA'
+      - '-t'
+      - 'gcr.io/$PROJECT_ID/learnwise-ai:latest'
+      - '.'
+
+  # Step 2: Push the image to Google Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - 'gcr.io/$PROJECT_ID/learnwise-ai:$COMMIT_SHA'
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - 'gcr.io/$PROJECT_ID/learnwise-ai:latest'
+
+  # Step 3: Deploy the image to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'learnwise-ai'
+      - '--image'
+      - 'gcr.io/$PROJECT_ID/learnwise-ai:$COMMIT_SHA'
+      - '--region'
+      - 'us-central1'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+      - '--port'
+      - '8080'
+
+# Store the built image in Container Registry
+images:
+  - 'gcr.io/$PROJECT_ID/learnwise-ai:$COMMIT_SHA'
+  - 'gcr.io/$PROJECT_ID/learnwise-ai:latest'
+
+# Substitution variables — set these in Cloud Build trigger settings (NOT in this file)
+# _VITE_GEMINI_API_KEY_PRIMARY: your primary Gemini API key
+# _VITE_GEMINI_API_KEY_FALLBACK: your fallback Gemini API key
+substitutions:
+  _VITE_GEMINI_API_KEY_PRIMARY: ''
+  _VITE_GEMINI_API_KEY_FALLBACK: ''
