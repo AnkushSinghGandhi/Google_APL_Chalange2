@@ -21,6 +21,10 @@ I wanted to transform a standard web template into a **centralized, interactive 
 
 The UI was intentionally designed with a dark-themed, glassmorphism aesthetic to reduce eye strain and provide a focused, distraction-free environment.
 
+### ✨ Hyper-Personalization
+To make this the *best* possible solution to the APL challenge, the system goes beyond generic LLM answers. Users can now **upload their Resume/Experience** and provide an **Honest Self-Assessment** during the Quick Setup. 
+This data is dynamically injected into the core AI engine, allowing the Tutor to tailor its analogies strictly to the user's professional background (e.g., explaining Machine Learning using financial modeling analogies if the user's resume indicates they are a Finance major).
+
 ---
 
 ## 🚀 What I Could Have Done More (Future Scope)
@@ -43,6 +47,8 @@ To rapidly prototype and build this application, I utilized an agentic workflow 
 > *"Fix the 'Invalid hook call' errors occurring when switching tabs between the Roadmap and Pathfinder. Refactor the components from arrow functions to standard named function exports to ensure proper React lifecycle tracking."*
 
 > *"Add details like developed by ankush singh Gandhi - warriorwhocodes.com using AntiGravity, gemini 3.1 pro and gemini 3 flash and deployed using google cloud to the application footer."*
+
+> *"do something more to make this best solution to above chalange like user should upload there resume too and also add honest details about themselves like what are there level in what skill to get best personalized roadmap for them"*
 
 ---
 

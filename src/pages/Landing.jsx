@@ -147,7 +147,7 @@ export default function Landing() {
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="glass rounded-2xl p-8 w-full max-w-lg"
+                    className="glass rounded-2xl p-8 w-full max-w-2xl max-h-[90vh] overflow-y-auto"
                 >
                     <div className="flex items-center gap-3 mb-6">
                         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-600 to-indigo-600 flex items-center justify-center">
@@ -214,6 +214,30 @@ export default function Landing() {
                                     <option value="project">Build Projects</option>
                                 </select>
                             </div>
+                        </div>
+
+                        <div>
+                            <label className="block text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-2">
+                                Honest Self-Assessment
+                            </label>
+                            <textarea
+                                value={localProfile.selfAssessment || ""}
+                                onChange={(e) => setLocalProfile({ ...localProfile, selfAssessment: e.target.value })}
+                                placeholder="e.g., 'I know React hooks but struggle with Redux. I'm a complete beginner at Node.js...'"
+                                className="w-full px-4 py-3 bg-black/50 border border-white/10 rounded-lg text-white placeholder:text-zinc-600 focus:outline-none focus:border-violet-500/50 focus:ring-1 focus:ring-violet-500/20 text-sm min-h-[80px]"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-2">
+                                Paste Resume / Experience
+                            </label>
+                            <textarea
+                                value={localProfile.resumeText || ""}
+                                onChange={(e) => setLocalProfile({ ...localProfile, resumeText: e.target.value })}
+                                placeholder="Paste your resume or list your professional experience here so the AI can tailor analogies to your background..."
+                                className="w-full px-4 py-3 bg-black/50 border border-white/10 rounded-lg text-white placeholder:text-zinc-600 focus:outline-none focus:border-violet-500/50 focus:ring-1 focus:ring-violet-500/20 text-sm min-h-[100px]"
+                            />
                         </div>
                     </div>
 

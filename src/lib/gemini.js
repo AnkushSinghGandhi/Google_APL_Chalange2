@@ -73,9 +73,11 @@ const getUserContext = (profile) => {
     if (profile.occupation) parts.push(`Occupation: ${profile.occupation}`);
     if (profile.goal) parts.push(`Goal: ${profile.goal}`);
     if (profile.skills) parts.push(`Skills: ${profile.skills}`);
+    if (profile.selfAssessment) parts.push(`Honest Self-Assessment:\n${profile.selfAssessment}`);
+    if (profile.resumeText) parts.push(`User Resume/Experience Background:\n${profile.resumeText.substring(0, 1500)}`);
 
     if (parts.length === 0) return "";
-    return `\nUser Context:\n${parts.map(p => `- ${p}`).join("\n")}\nTailor the technical depth and examples to this user's level and interests.`;
+    return `\nUser Context:\n${parts.map(p => `- ${p}`).join("\n")}\nTailor the technical depth, analogies, and examples specifically to this user's professional background and stated skill levels.`;
 };
 
 export const generateQuiz = async (context, userProfile) => {

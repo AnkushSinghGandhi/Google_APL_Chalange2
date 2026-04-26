@@ -340,7 +340,7 @@ export default function LearnWorkspace() {
 
             {showSettings && (
                 <div className="fixed inset-0 z-[70] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-                    <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="glass rounded-2xl p-6 w-full max-w-lg">
+                    <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="glass rounded-2xl p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
                         <div className="flex items-center gap-3 mb-6">
                             <Settings className="w-5 h-5 text-violet-400" />
                             <h3 className="text-lg font-bold">AI Settings</h3>
@@ -368,6 +368,16 @@ export default function LearnWorkspace() {
                                         <option value="academic">Academic Study</option>
                                     </select>
                                 </div>
+                            </div>
+
+                            <div>
+                                <label className="block text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-2">Honest Self-Assessment</label>
+                                <textarea value={localProfile.selfAssessment || ""} onChange={(e) => setLocalProfile({ ...localProfile, selfAssessment: e.target.value })} placeholder="e.g., 'I know React hooks but struggle with Redux. I'm a complete beginner at Node.js...'" className="w-full px-4 py-3 bg-black/50 border border-white/10 rounded-lg text-white placeholder:text-zinc-600 focus:outline-none focus:border-violet-500/50 font-mono text-sm min-h-[80px]" />
+                            </div>
+
+                            <div>
+                                <label className="block text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-2">Paste Resume / Experience</label>
+                                <textarea value={localProfile.resumeText || ""} onChange={(e) => setLocalProfile({ ...localProfile, resumeText: e.target.value })} placeholder="Paste your resume or list your professional experience here so the AI can tailor analogies to your background..." className="w-full px-4 py-3 bg-black/50 border border-white/10 rounded-lg text-white placeholder:text-zinc-600 focus:outline-none focus:border-violet-500/50 font-mono text-sm min-h-[100px]" />
                             </div>
                         </div>
                         <div className="flex gap-3 mt-6">
